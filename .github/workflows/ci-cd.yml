@@ -18,10 +18,14 @@ jobs:
         uses: actions/checkout@v3
 
       # Étape 2 : Configurer Java (si vous utilisez Java)
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '21'
+    - name: Set up JDK
+    uses: actions/setup-java@v2
+    with:
+    java-version: '21'               # La version de Java
+    distribution: 'adoptopenjdk'      # La distribution de Java (ici, adoptopenjdk)
+    architecture: x64                 # L'architecture (x64 ou arm64)
+    check-latest: false               # Ne pas vérifier si c'est la dernière version
+
 
       # Étape 3 : Construire le projet avec Maven
       - name: Build with Maven
