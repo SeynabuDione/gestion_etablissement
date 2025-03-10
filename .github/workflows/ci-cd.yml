@@ -3,29 +3,26 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - main  # Déclenche le pipeline lors d'un push sur la branche 'main'
   pull_request:
     branches:
-      - main
+      - main  # Déclenche le pipeline lors d'une demande de tirage sur la branche 'main'
+  workflow_dispatch:  # Déclenchement manuel du workflow via GitHub
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Utilisation de l'image Ubuntu pour le job
 
     steps:
-      # Étape 1 : Récupérer le code du dépôt
+      # Étape 1 : Récupérer le code depuis le dépôt
       - name: Checkout code
         uses: actions/checkout@v3
 
       # Étape 2 : Configurer Java (si vous utilisez Java)
-    - name: Set up JDK
-    uses: actions/setup-java@v2
-    with:
-    java-version: '21'               # La version de Java
-    distribution: 'adoptopenjdk'      # La distribution de Java (ici, adoptopenjdk)
-    architecture: x64                 # L'architecture (x64 ou arm64)
-    check-latest: false               # Ne pas vérifier si c'est la dernière version
-
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
 
       # Étape 3 : Construire le projet avec Maven
       - name: Build with Maven
@@ -35,34 +32,39 @@ jobs:
       - name: Run unit tests
         run: mvn test
 
-      # Étape 5 : Exécuter les tests d'interface JavaFX (si nécessaire)
-      - name: Run JavaFX UI tests
-        run: mvn test -Dtest=UIAutomationTest
+      # Étape 5 : Vérifier si Docker est en cours d'exécution
+      - name: Check Docker status
+        run: |
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          docker --version  # Vérifie que Docker fonctionne correctement
 
-      # Étape 6 : Vérification de la qualité du code avec SonarQube
-      - name: Analyze with SonarQube
-        run: mvn sonar:sonar -Dsonar.host.url=http://your-sonarqube-server
-
-      # Étape 7 : Packaging de l'artéfact
-      - name: Package the artifact
-        run: mvn package
-
-      # Étape 8 : Créer une image Docker (si nécessaire)
+      # Étape 6 : Créer l'image Docker
       - name: Build Docker image
-        run: docker build -t your-image-name .
+        run: docker build -t my-java-app .
 
-      # Étape 9 : Push de l'image Docker dans un registry Docker
+      # Étape 7 : Push de l'image Docker dans le Docker Hub
       - name: Push Docker image
-        run: docker push your-image-name
+        run: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          docker push my-java-app
 
-      # Étape 10 : Provisionner l'environnement (exemple avec Terraform)
+      # Étape 8 : Provisionner l'environnement avec Terraform (si nécessaire)
       - name: Provision environment
         run: terraform apply
 
-      # Étape 11 : Déployer automatiquement l'image dans l'environnement cible
-      - name: Deploy to production
-        run: docker run -d your-image-name
+      # Étape 9 : Déployer l'application dans l'environnement cible avec Docker
+      - name: Deploy application
+        run: docker run -d my-java-app
 
-      # Étape 12 : Configurer les métriques Prometheus pour le monitoring (facultatif)
+      # Étape 10 : Configurer les métriques Prometheus pour le monitoring
       - name: Set up Prometheus metrics
         run: docker-compose -f prometheus.yml up
+
+      # Étape 11 : Analyser la qualité du code avec SonarQube (si nécessaire)
+      - name: Analyze with SonarQube
+        run: mvn sonar:sonar -Dsonar.host.url=http://your-sonarqube-server
+
+      # Étape 12 : Notifier du statut du déploiement
+      - name: Notify deployment status
+        run: echo "Deployment successful!"
