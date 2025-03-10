@@ -1,1 +1,33 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Récupérer le code du dépôt
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Étape 2 : Configurer Java (si vous utilisez Java)
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21'
+
+      # Étape 3 : Construire le projet (par exemple, avec Maven)
+      - name: Build with Maven
+        run: mvn clean install
+
+      # Étape 4 : Exécuter les tests unitaires
+      - name: Run unit tests
+        run: mvn test
 
