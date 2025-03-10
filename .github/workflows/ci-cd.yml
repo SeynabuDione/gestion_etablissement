@@ -23,7 +23,7 @@ jobs:
         with:
           java-version: '21'
 
-      # Étape 3 : Construire le projet (par exemple, avec Maven)
+      # Étape 3 : Construire le projet avec Maven
       - name: Build with Maven
         run: mvn clean install
 
@@ -31,3 +31,34 @@ jobs:
       - name: Run unit tests
         run: mvn test
 
+      # Étape 5 : Exécuter les tests d'interface JavaFX (si nécessaire)
+      - name: Run JavaFX UI tests
+        run: mvn test -Dtest=UIAutomationTest
+
+      # Étape 6 : Vérification de la qualité du code avec SonarQube
+      - name: Analyze with SonarQube
+        run: mvn sonar:sonar -Dsonar.host.url=http://your-sonarqube-server
+
+      # Étape 7 : Packaging de l'artéfact
+      - name: Package the artifact
+        run: mvn package
+
+      # Étape 8 : Créer une image Docker (si nécessaire)
+      - name: Build Docker image
+        run: docker build -t your-image-name .
+
+      # Étape 9 : Push de l'image Docker dans un registry Docker
+      - name: Push Docker image
+        run: docker push your-image-name
+
+      # Étape 10 : Provisionner l'environnement (exemple avec Terraform)
+      - name: Provision environment
+        run: terraform apply
+
+      # Étape 11 : Déployer automatiquement l'image dans l'environnement cible
+      - name: Deploy to production
+        run: docker run -d your-image-name
+
+      # Étape 12 : Configurer les métriques Prometheus pour le monitoring (facultatif)
+      - name: Set up Prometheus metrics
+        run: docker-compose -f prometheus.yml up
