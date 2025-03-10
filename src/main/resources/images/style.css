@@ -1,0 +1,40 @@
+.card_bg_image {
+    -fx-background-image: url('classe.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.card_bg_etudiant {
+    -fx-background-image: url('etudiant.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.card_bg_menu {
+    -fx-background-image: url('menu.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.card_bg_curs {
+    -fx-background-image: url('curs.jpeg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.card_bg_prof {
+    -fx-background-image: url('prof.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+.card_bg_connexion{
+     -fx-background-image: url('conn.jpg');
+     -fx-background-repeat: no-repeat;
+     -fx-background-size: cover;
+     -fx-background-position: center;
+ }

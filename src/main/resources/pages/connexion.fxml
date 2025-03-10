@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="333.0" prefWidth="600.0" styleClass="card_bg_connexion"
+            stylesheets="@../images/style.css" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.groupeisi.g_etablissement.controller.ConnController">
+   <children>
+      <Button fx:id="connexion" layoutX="228.0" layoutY="245.0" mnemonicParsing="false" onAction="#connexion" prefHeight="30.0" prefWidth="155.0" text="Se connectez!!">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="67.0" layoutY="33.0" prefHeight="50.0" prefWidth="465.0" text="COURS PRIVE SAMA SCHOOL" textFill="#731919" textOverrun="CLIP" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="33.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fdemail" layoutX="208.0" layoutY="130.0" prefHeight="26.0" prefWidth="195.0" promptText="Saisir votre email" />
+      <PasswordField fx:id="tfdpassword" layoutX="206.0" layoutY="180.0" prefHeight="26.0" prefWidth="195.0" promptText="Saisir votre mot de passe" />
+   </children>
+</AnchorPane>

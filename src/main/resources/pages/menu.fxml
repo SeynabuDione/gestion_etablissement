@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="679.0" styleClass="card_bg_menu" stylesheets="@../images/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.groupeisi.g_etablissement.controller.menuController">
+   <children>
+      <Button fx:id="btnclasse" layoutX="241.0" layoutY="131.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="GESTION DES CLASSES">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnetudiant" layoutX="241.0" layoutY="192.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="GESTION DES ETUDIANTS">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btncurs" layoutX="242.0" layoutY="319.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="GESTION DES COURS">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnprofesseur" layoutX="242.0" layoutY="65.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="GESTION DES PROFESSEURS">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnemplois" layoutX="242.0" layoutY="253.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="214.0" text="GESTION_EMPLOIS_DU_TEMPS">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

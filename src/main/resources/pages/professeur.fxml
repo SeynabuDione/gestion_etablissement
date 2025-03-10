@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="641.0" prefWidth="789.0"
+            styleClass="card_bg_prof" stylesheets="@../images/style.css"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+
+      <TextField fx:id="tfdid" layoutX="57.0" layoutY="115.0" prefHeight="26.0" prefWidth="192.0" promptText="ID du professeur" editable="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+
+      <TextField fx:id="tfdnomproff" layoutX="57.0" layoutY="163.0" prefHeight="26.0" prefWidth="192.0" promptText="Donner un nom">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+
+
+      <Label layoutX="27.0" layoutY="55.0" prefHeight="27.0" prefWidth="262.0" style="-fx-background-color: white;" text="INFORMATIONS PROFESSEURS" textFill="#180505">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+
+
+      <Label layoutX="374.0" layoutY="55.0" prefHeight="27.0" prefWidth="175.0" style="-fx-background-color: white;" text="LISTE DES PROFESSEURS" textFill="#180101">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+
+
+      <Button fx:id="btnsave" layoutX="18.0" layoutY="327.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: green;" text="Ajouter">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+
+
+      <Button fx:id="btnupdate" layoutX="119.0" layoutY="327.0" mnemonicParsing="false" onAction="#update" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: blue;" text="Modifier">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+
+
+      <Button fx:id="btndelete" layoutX="218.0" layoutY="327.0" mnemonicParsing="false" onAction="#delete" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: red;" text="Supprimer">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+
+
+      <TextField fx:id="tfdmatiere" layoutX="57.0" layoutY="211.0" prefHeight="26.0" prefWidth="192.0" promptText="Donner une matière">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+
+
+      <TableView fx:id="tableProf" layoutX="314.0" layoutY="126.0" onMouseClicked="#getData" prefHeight="244.0" prefWidth="298.0">
+         <columns>
+
+            <TableColumn fx:id="tid" prefWidth="61.5999755859375" text="ID" />
+
+            <TableColumn fx:id="tnomprof" prefWidth="116.79998779296875" text="NOM" />
+         
+            <TableColumn fx:id="tmatiere" prefWidth="124.0" text="MATIERE" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
