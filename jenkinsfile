@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_REGISTRY = "nexus-repo:8081"  // URL de ton registre Docker Nexus
+        IMAGE_NAME = "gestion-etablissement" // Nom de l'image Docker
+        SONAR_TOKEN = credentials('sonar-token') // Token SonarQube (à configurer dans Jenkins)
+    }
+    stages {
+        // Étape 1 : Récupérer le code depuis Git
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/SeynabuDione/gestion_etablissement', branch: 'main'
+            }
+        }
+
+        // Étape 2 : Compiler le projet avec Maven
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        // Étape 3 : Analyser le code avec SonarQube
+        stage('Code Analysis with SonarQube') {
+            steps {
+                sh "mvn sonar:sonar -Dsonar.login=${SONAR_TOKEN}"
+            }
+        }
+
+        // Étape 4 : Publier l'artefact sur Nexus
+        stage('Publish to Nexus') {
+            steps {
+                sh 'mvn deploy'
+            }
+        }
+
+        // Étape 5 : Construire l'image Docker
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest ."
+            }
+        }
+
+        // Étape 6 : Pousser l'image Docker vers Nexus
+        stage('Push Docker Image') {
+            steps {
+                sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+            }
+        }
+
+        // Étape 7 : Déployer sur Kubernetes
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml -n dev'
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gestion-etablissement  # Nom du déploiement
+  namespace: dev  # Change pour pre-prod ou prod selon l'environnement
+spec:
+  replicas: 1  # Nombre de réplicas
+  selector:
+    matchLabels:
+      app: gestion-etablissement
+  template:
+    metadata:
+      labels:
+        app: gestion-etablissement
+    spec:
+      containers:
+        - name: app
+          image: nexus-repo:8081/gestion-etablissement:latest  # Image Docker
+          ports:
+            - containerPort: 8080  # Port exposé
+          env:
+            - name: ENV  # Variable d'environnement pour l'environnement
+              value: "dev"  # Change pour pre-prod ou prod
+          livenessProbe:
+            httpGet:
+              path: /health  # Endpoint de santé
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gestion-etablissement-service
+  namespace: dev  # Change pour pre-prod ou prod
+spec:
+  selector:
+    app: gestion-etablissement
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer  # Pour exposer le service à l'extérieur du cluster
